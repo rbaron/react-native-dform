@@ -1,4 +1,4 @@
-# react-dform
+# react-native-dform
 
 Schema-based dynamic forms for React Native. It uses the schema defined as expected by [dform](https://github.com/rbaron/dform).
 
