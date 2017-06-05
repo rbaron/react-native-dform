@@ -28,7 +28,7 @@ import { DForm } from 'react-native-dform'
 
 ```
 
-Check out a full example example app in [index.js](https://github.com/rbaron/react-native-dform/blob/master/index.js).
+Check out a minimal example app in [app.js](https://github.com/rbaron/react-native-dform/blob/master/app.js).
 
 # License
 
