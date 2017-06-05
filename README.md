@@ -6,7 +6,9 @@ Schema-based dynamic forms for React Native. It uses the schema defined as expec
 
 In the following example, the schema defines a form in which `input3` is only shown if `input1` is `true` _and_ `input2` is not empty. `input4`, on it's turn, is only visible if, in addition, `input3` is `true`.
 
-![Demo](http://i.imgur.com/todtrPl.gif)
+<p align="center">
+  <img src="http://i.imgur.com/todtrPl.gif" alt="Demo"/>
+</p>
 
 # Installation
 
