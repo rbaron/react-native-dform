@@ -38,9 +38,14 @@ class DForm extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.props.onChange(this.filterState())
+  }
+
   booleanInputFactory(field) {
     const { keyExtractor } = this.props
     const key = keyExtractor(field)
+    // TODO: figure out why animation does not work anymore
     return (
       <View key={key} style={styles.row}>
         <Text style={styles.label}>
@@ -91,7 +96,7 @@ class DForm extends React.Component {
     const { schema, state } = this.props
 
     return (
-      <View style={{padding: 20, }}>
+      <View style={{ padding: 20 }}>
         { renderForm(state, schema, this.inputFactories) }
       </View>
     )

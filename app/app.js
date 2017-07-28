@@ -19,8 +19,7 @@ class RNDForm extends Component {
   }
 
   onFormChange(newFormState) {
-    //this.setState({formState: newFormState})
-    //console.warn('got new state', newFormState)
+    console.log('Got new state:', newFormState)
   }
 
   render() {
