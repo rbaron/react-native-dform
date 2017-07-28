@@ -6,7 +6,7 @@ import {
   View
 } from 'react-native';
 
-import { DForm } from './js'
+import { DForm } from '../js'
 import exampleSchema from './exampleSchema'
 
 class RNDForm extends Component {
