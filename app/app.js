@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import { DForm } from '../js'
-import exampleSchema from './exampleSchema'
+import { exampleallFields, exampleLabelsGif } from './exampleSchema'
 
 class RNDForm extends Component {
   constructor(props) {
@@ -19,16 +19,18 @@ class RNDForm extends Component {
   }
 
   onFormChange(newFormState) {
-    this.setState({formState: newFormState})
+    //this.setState({formState: newFormState})
+    //console.warn('got new state', newFormState)
   }
 
   render() {
     return (
       <View style={styles.container}>
         <DForm
+            keyExtractor={f => f.label}
             onChange={this.onFormChange}
-            schema={exampleSchema}
-            state={this.state.formState} />
+            schema={exampleallFields}
+            initialState={this.state.formState} />
       </View>
     );
   }

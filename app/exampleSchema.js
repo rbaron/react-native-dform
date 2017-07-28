@@ -1,4 +1,4 @@
-export default {
+export const exampleSchema = {
   cond: {
     type: 'always_true',
   },
@@ -38,5 +38,67 @@ export default {
         label: 'input4',
       }],
     }],
+  }],
+}
+
+export const exampleLabelsGif = {
+  cond: {
+    type: 'always_true'
+  },
+  fields: [{
+    type: 'boolean',
+    label: 'Example boolean'
+  }, {
+    type: 'options',
+    label: 'Example options',
+    options: [{
+      label: 'Option #1'
+    }, {
+      label: 'Option #2'
+    }, {
+      label: 'Option #3'
+    }],
+  }],
+  children: [{
+    cond: {
+      type: 'and',
+      conds: [{
+        type: 'truthy',
+        field_id: 'Example boolean'
+      }, {
+        type: 'equals',
+        field_id: 'Example options',
+        field_value: 'Option #2'
+      }],
+    },
+    fields: [{
+      type: 'string',
+      label: 'Example string'
+    }],
+    children: [{
+      cond: {
+        type: 'equals',
+        field_id: 'Example string',
+        field_value: 'Expected value',
+      },
+      fields: [{
+        type: 'date',
+        label: 'Example date',
+      }],
+    }],
+  }],
+}
+
+
+export const exampleallFields = {
+  cond: {
+    type: 'always_true'
+  },
+  fields: [{
+    type: 'boolean',
+    label: 'Example boolean'
+  }, {
+    type: 'string',
+    label: 'Example string'
   }],
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { renderForm } from 'dform'
+import { activeFields, defaultState, renderForm } from 'dform'
 
 import {
   getTheme,
@@ -13,13 +13,15 @@ import {
 
 class DForm extends React.Component {
   static propTypes = {
-    schema: PropTypes.object,
-    state: PropTypes.object,
+    initialState: PropTypes.object,
+    keyExtractor: PropTypes.func.isRequired,
     onChange: PropTypes.func,
+    schema: PropTypes.object,
   }
 
   static defaultProps = {
-
+    initialState: {},
+    keyExtractor: field => field.id,
   }
 
   constructor(props) {
@@ -29,42 +31,60 @@ class DForm extends React.Component {
       'boolean': this.booleanInputFactory.bind(this),
       'string': this.stringInputFactory.bind(this),
     }
+
+    this.state = {
+      ...defaultState(props.schema, props.keyExtractor),
+      ...props.initialState,
+    }
   }
 
-  booleanInputFactory(args) {
+  booleanInputFactory(field) {
+    const { keyExtractor } = this.props
+    const key = keyExtractor(field)
     return (
-      <View key={args.id} style={styles.row}>
+      <View key={key} style={styles.row}>
         <Text style={styles.label}>
-          {args.label}
+          {field.label}
         </Text>
         <MKSwitch
-            checked={this.props.state[args.id]}
-            onCheckedChange={v => this.onChange(args.id, v.checked)}
-            placeholder={args.label} />
+            checked={this.state[key]}
+            onCheckedChange={v => this.onChange(key, v.checked)}
+          />
       </View>
     );
   }
 
-  stringInputFactory(args) {
+  stringInputFactory(field) {
+    const { keyExtractor } = this.props
+    const key = keyExtractor(field)
     return (
-      <View key={args.id} style={styles.textInputWrapper}>
+      <View key={key} style={styles.textInputWrapper}>
       <MKTextField
-          key={args.id}
-          autoCorrect={false}
-          value={this.props.state[args.id]}
-          onChangeText={v => this.onChange(args.id, v)}
+          key={key}
+          autoCorrect={field.autocorrect || false}
+          value={this.state[key]}
+          onChangeText={v => this.onChange(key, v)}
           floatingLabelEnabled={true}
           textInputStyle={styles.textInput}
-          placeholder={args.label} />
+          placeholder={field.label} />
       </View>
     );
   }
 
-  onChange(id, newValue) {
-    this.props.onChange({
-      ...this.props.state,
-      [id]: newValue,
-    })
+  onChange(key, value) {
+    this.setState({[key]: value}, () => this.props.onChange(this.filterState()));
+  }
+
+  filterState() {
+    const { keyExtractor, schema } = this.props
+    const keys = activeFields(this.state, schema).map(keyExtractor)
+    return keys.reduce((acc, k) => {
+      if (this.state[k] !== undefined) {
+        return { ...acc, [k]: this.state[k] }
+      } else {
+        return acc
+      }
+    }, {})
   }
 
   render() {
