@@ -7,7 +7,11 @@ import {
 } from 'react-native';
 
 import { DForm } from '../js'
-import { exampleallFields, exampleLabelsGif } from './exampleSchema'
+import {
+  conditionalAllFields,
+  exampleallFields,
+  exampleLabelsGif,
+ } from './exampleSchema'
 
 class RNDForm extends Component {
   constructor(props) {
@@ -28,7 +32,7 @@ class RNDForm extends Component {
         <DForm
             keyExtractor={f => f.label}
             onChange={this.onFormChange}
-            schema={exampleallFields}
+            schema={conditionalAllFields}
             initialState={this.state.formState} />
       </View>
     );

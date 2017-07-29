@@ -89,6 +89,25 @@ export const exampleLabelsGif = {
   }],
 }
 
+export const conditionalAllFields = {
+  cond: {
+    type: 'always_true'
+  },
+  fields: [{
+    type: 'boolean',
+    label: 'Example boolean',
+  }],
+  children: [{
+    cond: {
+      type: 'truthy',
+      field_id: 'Example boolean',
+    },
+    fields: [{
+      type: 'string',
+      label: 'Example string'
+    }],
+  }],
+}
 
 export const exampleallFields = {
   cond: {
