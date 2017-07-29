@@ -12,7 +12,8 @@
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",
-    "react-native-material-kit": "^0.4.1"
+    "react-native-material-kit": "^0.4.1",
+    "react-native-modal-picker": "^0.0.16"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",

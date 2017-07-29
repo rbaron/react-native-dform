@@ -32,7 +32,7 @@ class RNDForm extends Component {
         <DForm
             keyExtractor={f => f.label}
             onChange={this.onFormChange}
-            schema={conditionalAllFields}
+            schema={exampleallFields}
             initialState={this.state.formState} />
       </View>
     );

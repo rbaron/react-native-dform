@@ -104,7 +104,7 @@ export const conditionalAllFields = {
     },
     fields: [{
       type: 'string',
-      label: 'Example string'
+      label: 'Example string',
     }],
   }],
 }
@@ -119,5 +119,16 @@ export const exampleallFields = {
   }, {
     type: 'string',
     label: 'Example string'
+  }, {
+    type: 'options',
+    label: 'Example options',
+    options: [{
+      label: 'Option #1',
+    }, {
+      label: 'Option #2',
+    }],
+  }, {
+    type: 'string',
+    label: 'Example string2'
   }],
 }

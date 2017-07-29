@@ -4,11 +4,13 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { activeFields, defaultState, renderForm } from 'dform'
 
 import {
-  getTheme,
   MKColor,
   MKSwitch,
   MKTextField,
 } from 'react-native-material-kit';
+
+import styles from './styles'
+import { OptionsInput } from './factories/options'
 
 
 class DForm extends React.Component {
@@ -29,6 +31,7 @@ class DForm extends React.Component {
     this.onChange = this.onChange.bind(this)
     this.inputFactories = {
       'boolean': this.booleanInputFactory.bind(this),
+      'options': this.optionsInputFactory.bind(this),
       'string': this.stringInputFactory.bind(this),
     }
 
@@ -57,7 +60,22 @@ class DForm extends React.Component {
             onCheckedChange={v => this.onChange(key, v.checked)}
           />
       </View>
-    );
+    )
+  }
+
+  optionsInputFactory(field) {
+    const { keyExtractor } = this.props
+    const key = keyExtractor(field)
+
+    return (
+      <OptionsInput
+          field={field}
+          key={key}
+          keyExtractor={keyExtractor}
+          onChange={this.onChange}
+          value={this.state[key]}
+      />
+    )
   }
 
   stringInputFactory(field) {
@@ -65,17 +83,17 @@ class DForm extends React.Component {
     const key = keyExtractor(field)
     return (
       <View key={key} style={styles.textInputWrapper}>
-      <MKTextField
-          key={key}
-          testID={key}
-          autoCorrect={field.autocorrect || false}
-          value={this.state[key]}
-          onChangeText={v => this.onChange(key, v)}
-          floatingLabelEnabled={true}
-          textInputStyle={styles.textInput}
-          placeholder={field.label} />
+        <MKTextField
+            key={key}
+            testID={key}
+            autoCorrect={field.autocorrect || false}
+            value={this.state[key]}
+            onChangeText={v => this.onChange(key, v)}
+            floatingLabelEnabled={true}
+            textInputStyle={styles.textInput}
+            placeholder={field.label} />
       </View>
-    );
+    )
   }
 
   onChange(key, value) {
@@ -95,8 +113,8 @@ class DForm extends React.Component {
     const { keyExtractor, schema } = this.props
     const keys = activeFields(state, schema).map(keyExtractor)
     return keys.reduce((acc, k) => {
-      if (this.state[k] !== undefined) {
-        return { ...acc, [k]: this.state[k] }
+      if (state[k] !== undefined) {
+        return { ...acc, [k]: state[k] }
       } else {
         return acc
       }
@@ -113,19 +131,5 @@ class DForm extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  textInput: {
-    height: 30,
-  },
-  textInputWrapper: {
-    marginBottom: 25,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-});
 
 export { DForm }
