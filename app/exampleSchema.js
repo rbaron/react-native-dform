@@ -117,6 +117,9 @@ export const exampleallFields = {
     type: 'boolean',
     label: 'Example boolean'
   }, {
+    type: 'boolean',
+    label: 'Example boolean2'
+  }, {
     type: 'string',
     label: 'Example string'
   }, {

@@ -50,15 +50,17 @@ class DForm extends React.Component {
     const key = keyExtractor(field)
     // TODO: figure out why animation does not work anymore
     return (
-      <View key={key} style={styles.row}>
-        <Text style={styles.label}>
-          {field.label}
-        </Text>
-        <MKSwitch
-            testID={key}
-            checked={this.state[key]}
-            onCheckedChange={v => this.onChange(key, v.checked)}
-          />
+      <View key={key} style={styles.inputWrapper}>
+        <View style={styles.row}>
+          <Text style={styles.label}>
+            {field.label}
+          </Text>
+          <MKSwitch
+              testID={key}
+              checked={this.state[key]}
+              onCheckedChange={v => this.onChange(key, v.checked)}
+            />
+        </View>
       </View>
     )
   }
@@ -82,7 +84,7 @@ class DForm extends React.Component {
     const { keyExtractor } = this.props
     const key = keyExtractor(field)
     return (
-      <View key={key} style={styles.textInputWrapper}>
+      <View key={key} style={styles.inputWrapper}>
         <MKTextField
             key={key}
             testID={key}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Picker, Platform } from 'react-native'
 import ModalPicker from 'react-native-modal-picker'
 
 import {
@@ -23,27 +23,53 @@ class OptionsInput extends React.Component {
   render() {
     const { field, keyExtractor, value, onChange } = this.props
     const key = keyExtractor(field)
-    const data = field.options.map(opt => ({
-      ...opt,
-      key: keyExtractor(opt),
-    }))
+    if (Platform.OS === 'android') {
+      const optsWithUndef = [{
+        label: field.label,
+        key: 'undef',
+        value: undefined,
+      }, ...field.options]
 
-    return (
-      <View key={key} style={[styles.textInputWrappers]}>
-        <ModalPicker
-            data={data}
-            onChange={opt => onChange(key, opt.key)}
-        >
-        <MKTextField
-            autoCorrect={field.autocorrect || false}
-            value={value}
-            editable={false}
-            floatingLabelEnabled={true}
-            style={styles.textField}
-            placeholder={field.label} />
-        </ModalPicker>
-      </View>
-    )
+      const data = optsWithUndef.map(opt => (
+        <Picker.Item
+            key={keyExtractor(opt)}
+            label={opt.label}
+            value={keyExtractor(opt)} />
+      ))
+
+      return (
+        <View key={key} style={styles.inputWrapper}>
+          <Text>{field.label}</Text>
+          <Picker
+              selectedValue={value}
+              onValueChange={val => onChange(key, val)}>
+            {data}
+          </Picker>
+        </View>
+      )
+    } else {
+      const data = field.options.map(opt => ({
+        ...opt,
+        key: keyExtractor(opt),
+      }))
+
+      return (
+        <View key={key} style={styles.inputWrapper}>
+          <ModalPicker
+              data={data}
+              onChange={opt => onChange(key, opt.key)}
+          >
+          <MKTextField
+              autoCorrect={field.autocorrect || false}
+              value={value}
+              editable={false}
+              floatingLabelEnabled={true}
+              style={styles.textField}
+              placeholder={field.label} />
+          </ModalPicker>
+        </View>
+      )
+    }
   }
 }
 
