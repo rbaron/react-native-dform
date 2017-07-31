@@ -6,6 +6,7 @@ export default StyleSheet.create({
   },
   label: {
     fontSize: 15,
+    flex: 1,
   },
   inputWrapper: {
     height: 75,
