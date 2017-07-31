@@ -52,7 +52,9 @@ class DForm extends React.Component {
   booleanInputFactory(field) {
     const { keyExtractor } = this.props
     const key = keyExtractor(field)
-    // TODO: figure out why animation does not work anymore
+    // TODO: figure out why animation does not work anymore. It seems to be because
+    // the setState on onChange triggers a rerender and for some reason it kills
+    // the animation.
     return (
       <View key={key} style={[styles.inputWrapper, styles.booleanInputWrapper]}>
         <View style={styles.row}>

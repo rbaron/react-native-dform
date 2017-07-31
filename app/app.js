@@ -6,7 +6,7 @@ import {
   View
 } from 'react-native';
 
-import { DForm } from '../js'
+import { setTheme, DForm } from '../js'
 import {
   conditionalAllFields,
   exampleallFields,
@@ -16,6 +16,10 @@ import {
 class RNDForm extends Component {
   constructor(props) {
     super(props)
+    setTheme({
+      primaryColor: 'red',
+      primaryColorRGB: '250, 0, 0',
+    })
     this.state = {
       formState: {},
     }
@@ -30,10 +34,12 @@ class RNDForm extends Component {
     return (
       <View style={styles.container}>
         <DForm
+            initialState={this.state.formState}
             keyExtractor={f => f.label}
             onChange={this.onFormChange}
+            primaryColor='#c00'
             schema={exampleallFields}
-            initialState={this.state.formState} />
+        />
       </View>
     );
   }
