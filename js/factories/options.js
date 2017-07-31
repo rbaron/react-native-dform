@@ -39,7 +39,7 @@ class OptionsInput extends React.Component {
 
       return (
         <View key={key} style={styles.inputWrapper}>
-          <Text>{field.label}</Text>
+          <Text style={styles.label}>{field.label}</Text>
           <Picker
               selectedValue={value}
               onValueChange={val => onChange(key, val)}>

@@ -131,7 +131,7 @@ export const exampleallFields = {
       label: 'Option #2',
     }],
   }, {
-    type: 'string',
-    label: 'Example string2'
+    type: 'date',
+    label: 'Example date'
   }],
 }

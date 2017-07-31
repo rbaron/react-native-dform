@@ -10,7 +10,9 @@ import {
 } from 'react-native-material-kit';
 
 import styles from './styles'
+
 import { OptionsInput } from './factories/options'
+import { DateInput } from './factories/date'
 
 
 class DForm extends React.Component {
@@ -31,6 +33,7 @@ class DForm extends React.Component {
     this.onChange = this.onChange.bind(this)
     this.inputFactories = {
       'boolean': this.booleanInputFactory.bind(this),
+      'date': this.dateInputFactory.bind(this),
       'options': this.optionsInputFactory.bind(this),
       'string': this.stringInputFactory.bind(this),
     }
@@ -50,7 +53,7 @@ class DForm extends React.Component {
     const key = keyExtractor(field)
     // TODO: figure out why animation does not work anymore
     return (
-      <View key={key} style={styles.inputWrapper}>
+      <View key={key} style={[styles.inputWrapper, styles.booleanInputWrapper]}>
         <View style={styles.row}>
           <Text style={styles.label}>
             {field.label}
@@ -62,6 +65,21 @@ class DForm extends React.Component {
             />
         </View>
       </View>
+    )
+  }
+
+  dateInputFactory(field) {
+    const { keyExtractor } = this.props
+    const key = keyExtractor(field)
+
+    return (
+      <DateInput
+          field={field}
+          key={key}
+          keyExtractor={keyExtractor}
+          onChange={this.onChange}
+          value={this.state[key]}
+      />
     )
   }
 

@@ -1,6 +1,12 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
+  booleanInputWrapper: {
+    height: 55,
+  },
+  label: {
+    fontSize: 15,
+  },
   inputWrapper: {
     height: 75,
   },
