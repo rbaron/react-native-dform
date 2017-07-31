@@ -12,7 +12,7 @@ import {
 import styles from './styles'
 
 import { OptionsInput } from './factories/options'
-import { DateInput } from './factories/date'
+import { DateInput, TimeInput } from './factories/date'
 
 
 class DForm extends React.Component {
@@ -36,6 +36,7 @@ class DForm extends React.Component {
       'date': this.dateInputFactory.bind(this),
       'options': this.optionsInputFactory.bind(this),
       'string': this.stringInputFactory.bind(this),
+      'time': this.timeInputFactory.bind(this),
     }
 
     this.state = {
@@ -113,6 +114,21 @@ class DForm extends React.Component {
             textInputStyle={styles.textInput}
             placeholder={field.label} />
       </View>
+    )
+  }
+
+  timeInputFactory(field) {
+    const { keyExtractor } = this.props
+    const key = keyExtractor(field)
+
+    return (
+      <TimeInput
+          field={field}
+          key={key}
+          keyExtractor={keyExtractor}
+          onChange={this.onChange}
+          value={this.state[key]}
+      />
     )
   }
 

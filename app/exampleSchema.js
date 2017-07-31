@@ -133,5 +133,8 @@ export const exampleallFields = {
   }, {
     type: 'date',
     label: 'Example date'
+  }, {
+    type: 'time',
+    label: 'Example time'
   }],
 }

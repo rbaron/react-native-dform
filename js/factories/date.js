@@ -14,16 +14,18 @@ const customStyles = {
   },
 }
 
-class DateInput extends React.Component {
+class DateTimeInput extends React.Component {
   static propTypes = {
     field: PropTypes.object.isRequired,
+    format: PropTypes.string.isRequired,
     keyExtractor: PropTypes.func.isRequired,
+    mode: PropTypes.oneOf(['date', 'time']).isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.any,
   }
 
   render() {
-    const { field, keyExtractor, value, onChange } = this.props
+    const { field, format, keyExtractor, mode, value, onChange } = this.props
     const key = keyExtractor(field)
 
     return (
@@ -38,8 +40,9 @@ class DateInput extends React.Component {
             customStyles={customStyles}
             date={value}
             placeholder={field.placeholder || field.label}
-            format={field.format || 'YYYY-MM-DD'}
-            mode='date'
+            format={format}
+            is24Hour={true}
+            mode={mode}
             showIcon={false}
             onDateChange={d => onChange(key, d)}
           />
@@ -49,4 +52,36 @@ class DateInput extends React.Component {
   }
 }
 
-export { DateInput }
+class DateInput extends React.Component {
+  static propTypes = {
+    field: PropTypes.object.isRequired,
+    keyExtractor: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.any,
+  }
+
+  render() {
+    return <DateTimeInput
+              {...this.props}
+              format={this.props.field.format || 'YYYY-MM-DD'}
+              mode='date' />
+  }
+}
+
+class TimeInput extends React.Component {
+  static propTypes = {
+    field: PropTypes.object.isRequired,
+    keyExtractor: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.any,
+  }
+
+  render() {
+    return <DateTimeInput
+              {...this.props}
+              format={this.props.field.format || 'HH:mm'}
+              mode='time' />
+  }
+}
+
+export { DateInput, TimeInput }
