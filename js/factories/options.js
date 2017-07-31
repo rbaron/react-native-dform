@@ -48,7 +48,13 @@ class OptionsInput extends React.Component {
         </View>
       )
     } else {
-      const data = field.options.map(opt => ({
+      const optsWithUndef = [{
+        label: field.label,
+        key: 'undef',
+        value: undefined,
+      }, ...field.options]
+
+      const data = optsWithUndef.map(opt => ({
         ...opt,
         key: keyExtractor(opt),
       }))
