@@ -65,6 +65,7 @@ class OptionsInput extends React.Component {
               editable={false}
               floatingLabelEnabled={true}
               style={styles.textField}
+              textInputStyle={styles.textInput}
               placeholder={field.label} />
           </ModalPicker>
         </View>
