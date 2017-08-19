@@ -6,6 +6,8 @@ import {
   View
 } from 'react-native';
 
+console.disableYellowBox = true;
+
 import { setTheme, DForm } from '../js'
 import {
   conditionalAllFields,
@@ -38,7 +40,7 @@ class RNDForm extends Component {
             keyExtractor={f => f.label}
             onChange={this.onFormChange}
             primaryColor='#c00'
-            schema={exampleallFields}
+            schema={exampleLabelsGif}
         />
       </View>
     );
